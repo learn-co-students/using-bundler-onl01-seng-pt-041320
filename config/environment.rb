@@ -1,2 +1,2 @@
-require "hashie"
-require "sinatra"
+require 'bundler/setup'
+Bundler.require(:default, :development)
