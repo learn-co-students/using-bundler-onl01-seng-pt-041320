@@ -3,7 +3,7 @@ require 'bundler'
 describe "Bundler" do
   before :all do
     @bundle_output = ""
-    Bundler.with_clean_env do
+    Bundler.with_original_env do
       @bundle_output = `bundle`
     end
   end
@@ -53,8 +53,8 @@ describe "Bundler" do
         expect(@bundle_output =~ /pry/).not_to eq(nil)
 
         bundle_output_without_development = ""
-        Bundler.with_clean_env do
-          bundle_output_without_development = `bundle --without development`
+        Bundler.with_original_env do
+          bundle_output_without_development = `bundle config set without 'development'`
         end
         expect(bundle_output_without_development =~ /pry/).to eq(nil)
       end
@@ -65,8 +65,8 @@ describe "Bundler" do
         expect(@bundle_output =~ /rspec/).not_to eq(nil)
 
         bundle_output_without_test = ""
-        Bundler.with_clean_env do
-          bundle_output_without_test = `bundle --without test`
+        Bundler.with_original_env do
+          bundle_output_without_test = `bundle config set without 'test'`
         end
         expect(bundle_output_without_test =~ /rspec/).to eq(nil)
       end
